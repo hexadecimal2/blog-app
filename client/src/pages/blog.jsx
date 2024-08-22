@@ -2,15 +2,19 @@ import React from "react";
 import "../styles.css";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Blog = () => {
   const location = useLocation();
   const data = location.state.data;
-
+  
+  const navigate = useNavigate();
+    
   console.log(data);
 
   return (
+    
+    <>
     <div className="blog-page-container">
       <h1 className="blog-page-title">JUST A SINGLE BLOG</h1>
       <h2 className="blog-author">{data.Author}</h2>
@@ -25,6 +29,11 @@ const Blog = () => {
         </div>
       </div>
     </div>
+  
+    <button className="return-home-button" onClick={() => navigate("/")}>
+        Return Home
+      </button>
+    </>
   );
 };
 
