@@ -1,3 +1,215 @@
-.DisplayCard{
-    border: 1px solid red;
+@font-face {
+    font-family: 'VCR_OSD_MONO'; /* Name your font family */
+    src: url('font/VCR_OSD_MONO_1.001.ttf'); /* Locate the .ttf file within your directory*/
+ }
+
+ body{
+       background-image : url('img.png');
+ }
+
+* Container for the entire blog page */
+.blog-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-image:url('img.png');
+}
+
+/* Title styling */
+.blog-title {
+  text-align: center;
+  font-size: 36px;
+  margin-bottom: 20px;
+  color: #333;
+  font-family: 'VCR_OSD_MONO', sans-serif;
+}
+
+/* Add blog button styling */
+.add-blog-button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: 'VCR_OSD_MONO', sans-serif;
+}
+
+.add-blog-button:hover {
+  background-color: #45a049;
+}
+
+/* List of blogs */
+.blog-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 10px;
+}
+
+/* Individual blog item */
+.blog-item {
+  background-color: #f9f9f9;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  font-family: 'VCR_OSD_MONO', sans-serif;
+
+}
+
+/* Remove blog button */
+.remove-blog-button {
+  margin-top: 10px;
+  padding: 8px 12px;
+  font-size: 14px;
+  color: #ff4d4d;
+  background-color: transparent;
+  border: 1px solid #ff4d4d;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: 'VCR_OSD_MONO', sans-serif;
+}
+
+.remove-blog-button:hover {
+  background-color: #ff4d4d;
+  color: white;
+}
+
+/* Container for the entire blog page */
+.blog-page-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'VCR_OSD_MONO', sans-serif;
+  line-height: 1.6;
+}
+
+/* Blog page title */
+.blog-page-title {
+  text-align: center;
+  font-size: 42px;
+  margin-bottom: 10px;
+  color: #444;
+}
+
+/* Author name */
+.blog-author {
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 5px;
+  color: #777;
+}
+
+/* Date of the blog */
+.blog-date {
+  text-align: center;
+  font-size: 16px;
+  margin-bottom: 20px;
+  color: #aaa;
+}
+
+/* Content area for the blog */
+.content-area {
+  background-color: #f4f4f4;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Title of the blog */
+.blog-title {
+  font-size: 30px;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+/* Blog description */
+.blog-description {
+  display: block;
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+/* Paragraph section */
+.paragraph-section {
+  font-size: 16px;
+  color: #666;
+  line-height: 1.8;
+}
+
+.paragraph-section p {
+  margin-bottom: 20px;
+}
+
+/* Container for the add blog page */
+.add-blog-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'VCR_OSD_MONO', sans-serif;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Title for the add blog page */
+.add-blog-title {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Form styling */
+.add-blog-form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Label styling */
+.form-label {
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #555;
+}
+
+/* Input field styling */
+.form-input {
+  margin-bottom: 15px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Textarea for blog content */
+.form-textarea {
+  height: 150px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: vertical; /* Allows the user to resize the textarea vertically */
+  margin-bottom: 15px;
+}
+
+/* Submit button styling */
+.submit-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: white;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  align-self: flex-end;
+}
+
+.submit-button:hover {
+  background-color: #45a049;
 }
