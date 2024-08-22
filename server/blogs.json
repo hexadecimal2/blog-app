@@ -1,0 +1,27 @@
+[
+    {"id": 1 , "data": {
+    "Title" : "The Power of Mindful Meditation",
+    "Description" : "Exploring the benefits of mindfulness meditation in daily life.",
+    "Author" : "Jane Doe",
+    "Date" : "20 Aug, 2024",
+    "Blog_data" : "Mindful meditation is a practice that has gained widespread popularity for its ability to reduce stress, improve focus, and enhance emotional well-being. By simply focusing on the present moment without judgment, individuals can cultivate a sense of calm and clarity. In this blog, we will explore the science behind mindfulness meditation, its benefits, and practical tips for incorporating it into your daily routine."
+    }},  
+    
+    {"id": 2 , "data": {
+    "Title" : "Top 10 Healthy Eating Habits",
+    "Description" : "A guide to developing sustainable healthy eating habits.",
+    "Author" : "John Smith",
+    "Date" : "18 Aug, 2024",
+    "Blog_data" : "Healthy eating is not just about following a diet; it's about creating habits that last a lifetime. In this blog, we outline the top 10 healthy eating habits that can help you maintain a balanced diet, improve your overall health, and prevent chronic diseases. From portion control to choosing whole foods, these tips are designed to make healthy eating a natural part of your daily life."
+    }},
+    
+    {"id": 3 , "data": {
+    "Title" : "Sustainable Travel: Tips for Eco-Friendly Adventures",
+    "Description" : "Guidance on how to travel responsibly and minimize your environmental impact.",
+    "Author" : "Emily Turner",
+    "Date" : "15 Aug, 2024",
+    "Blog_data" : "Traveling the world doesn't have to come at the expense of the environment. In this blog, we share practical tips for sustainable travel, from choosing eco-friendly accommodations to reducing your carbon footprint during your trips. Learn how to make mindful choices that protect the planet while still enjoying unforgettable adventures. Whether you're a seasoned traveler or planning your first trip, these tips will help you explore the world responsibly."
+    }}
+
+
+]
