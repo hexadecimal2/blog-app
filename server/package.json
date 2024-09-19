@@ -4,12 +4,16 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon server"
+    "dev": "nodemon server",
+    "start": "node server.js"
   },
   "author": "Joshua Pillay",
   "license": "ISC",
   "description": "a shrimple blog app",
   "dependencies": {
-    "cors": "^2.8.5"
-  }
+    "cors": "^2.8.5",
+    "mysql2": "^3.11.2"
+  },
+  "devDependencies": {},
+  "keywords": []
 }
