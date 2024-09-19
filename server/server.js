@@ -48,7 +48,9 @@ app.use(cors({origin:'https://brilliant-crisp-60a8c7.netlify.app'}));
 app.use(express.json());
 
 app.get('/get-blogs', async function(request, response){
-    
+ 
+    /*
+
     const users = await pool.query('SELECT * FROM users');
     const blogs = await pool.query('SELECT * FROM blogs');
     
@@ -59,6 +61,11 @@ app.get('/get-blogs', async function(request, response){
     response.json(data);
     
     console.log(data);
+    
+     */
+
+    response.json('hello')
+
 
 });
 
