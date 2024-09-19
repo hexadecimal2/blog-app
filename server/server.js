@@ -9,7 +9,9 @@ const pool = mysql.createPool({
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
-    connectionLimit: process.env.DB_CONNECTION_LIMIT
+    port : process.env.DB_DATABASE,
+    connectionLimit: process.env.DB_CONNECTION_LIMIT,
+    connectTimeout : 30000
 });
 
 const buildData = (users, blogs) => {
