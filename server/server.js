@@ -9,111 +9,134 @@ const pool = mysql.createPool({
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
-    port : process.env.DB_PORT,
+    port: process.env.DB_PORT,
     connectionLimit: process.env.DB_CONNECTION_LIMIT,
-    connectTimeout : 30000
+    connectTimeout: 30000
 });
 
-const buildData = (users, blogs) => {
-    let data = [];
-    for (let i = 0; i < blogs.length; i++) {
-        data.push({
-            id: blogs[i].blogID,
-            data: {
-                Title: blogs[i].Title,
-                Description: blogs[i].Description,
-                Author: users.find(user => user.userID === blogs[i].authorID)?.Username || 'Unknown',
-                Date: blogs[i].Date,
-                Blog_data: blogs[i].BlogData
-            }
-        });
-    }
-    return data;
-};
 
-app.use(cors({ origin: 'https://brilliant-crisp-60a8c7.netlify.app' }));
+const buildData = (users, blogs, arr) => {
+    
+  let data = []
+  
+  for (let i = 0; i < blogs[0].length; i++){
+     
+        data.push({
+            
+            id : blogs[0][i].blogID,
+            data : { 
+            Title : blogs[0][i].Title, 
+            Description : blogs[0][i].Description,
+            Author : users[0][i].Username,
+            Date : blogs[0][i].Date,
+            Blog_data: blogs[0][i].BlogData
+            }
+            
+        })
+     
+    }
+
+    return data       
+
+   
+}
+
+
+app.use(cors({origin:'https://brilliant-crisp-60a8c7.netlify.app'}));
+
 app.use(express.json());
 
-app.get('/get-blogs', async function (req, res) {
-    try {
-        const [users] = await pool.query('SELECT * FROM users');
-        const [blogs] = await pool.query('SELECT * FROM blogs');
-        
-        let data = buildData(users, blogs);
-        res.json(data);
+app.get('/get-blogs', async function(request, response){
+ 
+    const users = await pool.query('SELECT * FROM users');
+    const blogs = await pool.query('SELECT * FROM blogs');
     
+    //build the json file
+   
+    let data = buildData(users, blogs);
+     
+    response.json(data);
     
-    } catch (err) {
-        console.error(err);
-        res.status(500).send('Internal server error');
-    }
+    console.log(data);
+    
 });
 
-app.put('/add-blog', async function (req, res) {
-    try {
-        const { Author, Title, Description, Blog_data, Date } = req.body.data;
-        const [users] = await pool.query('SELECT * FROM users WHERE Username = ?', [Author]);
 
-        let authorID;
-
-        // Check if the user already exists
-        if (users.length > 0) {
-            authorID = users[0].userID;
-        } else {
-            const result = await pool.query('INSERT INTO users (Username) VALUES (?)', [Author]);
-            authorID = result[0].insertId;
-        }
-
-        const result = await pool.query(
-            'INSERT INTO blogs (Title, Description, BlogData, Date, authorID) VALUES (?, ?, ?, ?, ?)', 
-            [Title, Description, Blog_data, Date, authorID]
-        );
-        const newBlogID = result[0].insertId;
-
-        const [updatedUsers] = await pool.query('SELECT * FROM users');
-        const [updatedBlogs] = await pool.query('SELECT * FROM blogs');
+app.put('/add-blog', async function(request, response){
+    
+    let users = await pool.query('SELECT * FROM users');
+    let blogs = await pool.query('SELECT * FROM blogs');
         
-        let updatedPosts = buildData(updatedUsers, updatedBlogs);
-        res.json(updatedPosts);
-    } catch (err) {
-        console.error(err);
-        res.status(500).send('Internal server error');
-    }
-});
+    let posts = buildData(users, blogs);
+    
+    let found = false;
+    
+    console.log(posts);
 
-app.delete('/delete-blog', async function (req, res) {
-    try {
-        const { id } = req.body;
+    
+    posts.forEach(async (post, index, arr)=>{
+       
+        console.log(posts[index].data.Author)
+        console.log(request.body.data.Author)
+       
+      if (posts[index].data.Author === request.body.data.Author){           
+          found = true;         
+      } else{
+        found = false;
+      }
+    }) 
+    
 
-        // Fetch the blog with the given ID
-        const [blogs] = await pool.query('SELECT * FROM blogs WHERE blogID = ?', [id]);
+    await pool.query(`INSERT INTO users (Username) VALUES ('${request.body.data.Author}')`) 
+  
+    posts.push(request.body);
+   
+    await pool.query(`INSERT INTO blogs ( blogID, Title, Description, BlogData, Date) VALUES( ${posts[posts.length - 1].id}, '${posts[posts.length - 1].data.Title}', '${posts[posts.length - 1].data.Description}', '${posts[posts.length - 1].data.Blog_data}', '${posts[posts.length - 1].data.Date}');`);
+    //await pool.query(`INSERT INTO userblogs (userID, blogID) VALUES ((SELECT userID FROM users WHERE Username IN ( SELECT '${posts[posts.length - 1].data.Author}')), ${posts[posts.length - 1].id})`);
+    response.send(posts);
 
-        if (blogs.length === 0) {
-            return res.status(404).send('Blog not found!');
+})
+
+
+app.delete('/delete-blog', async function(request, response){
+
+    const users = await pool.query('SELECT * FROM users');
+    const blogs = await pool.query('SELECT * FROM blogs');
+    
+    let posts = buildData(users, blogs);
+    
+    let found = false;
+
+    posts.find(function (index) {
+        if (index.id === request.body.id) {
+            found = true;            
+            pool.query(`DELETE FROM blogs WHERE blogID = ${posts[request.body.id - 1].id}`).then();
+            pool.query(`DELETE FROM users WHERE username = '${posts[request.body.id - 1].data.Author}'`).then();
+            posts.splice(posts.indexOf(index.id - 1), 1);           
+            return
         }
-
-        const blog = blogs[0];
-
-        // Delete the blog
-        await pool.query('DELETE FROM blogs WHERE blogID = ?', [id]);
-
-        // Optionally, you could remove the user if there are no more blogs by that user.
-        const [userBlogs] = await pool.query('SELECT * FROM blogs WHERE authorID = ?', [blog.authorID]);
-        if (userBlogs.length === 0) {
-            await pool.query('DELETE FROM users WHERE userID = ?', [blog.authorID]);
+        else {
+            found = false;
         }
+    });
 
-        const [updatedUsers] = await pool.query('SELECT * FROM users');
-        const [updatedBlogs] = await pool.query('SELECT * FROM blogs');
+    if (found) {       
+        //await pool.query(`DELETE FROM blogs WHERE blogID = ${posts[request.body.id - 1]}`)
         
-        let updatedPosts = buildData(updatedUsers, updatedBlogs);
-        res.json(updatedPosts);
-    } catch (err) {
-        console.error(err);
-        res.status(500).send('Internal server error');
+        
+        console.log(posts[request.body.id - 2]);
+        console.log('Post deleted!');
+        response.send(posts);
+    
     }
-});
+    else{
+        console.log('Post not found!');
+        response.send(posts);
+    }
 
-app.listen(5000, function () {
-    console.log('Server running on port 5000!');
+})
+
+
+app.listen(5000, function(){
+    console.log('server running on port 5000!')
 });
