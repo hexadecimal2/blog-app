@@ -48,7 +48,7 @@ app.use(express.json());
 
 app.get('/get-blogs', async function(request, response){
  
-    {const users = await pool.query('SELECT * FROM Users');
+    /*const users = await pool.query('SELECT * FROM Users');
     const blogs = await pool.query('SELECT * FROM Blogs');
     
     //build the json file
@@ -58,7 +58,8 @@ app.get('/get-blogs', async function(request, response){
     response.json(data);
     
     console.log(data);
-    }
+    
+    */
 
     response.json({user : 'bob'})
 
