@@ -64,7 +64,7 @@ app.get('/get-blogs', async function(request, response){
     
      */
 
-    response.json('hello')
+    response.send({some : 'json'})
 
 
 });
