@@ -24,7 +24,7 @@ const AddBlog = () => {
       }),
     };
 
-    fetch("http://127.0.0.1:5000/add-blog", requestOptions)
+    fetch("https://blog-app-pcbk.onrender.com/add-blog", requestOptions)
       .then((response) => response.json())
       .then((data) => {
         alert("Success!");

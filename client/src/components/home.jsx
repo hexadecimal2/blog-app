@@ -10,7 +10,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/get-blogs")
+    fetch("https://blog-app-pcbk.onrender.com/get-blogs")
       .then((response) => response.json())
       .then((data) => {
         setBlogData(data);
@@ -20,7 +20,7 @@ const Home = () => {
   const handleClick = (blog) => {
     console.log(blog.id);
 
-    fetch("http://127.0.0.1:5000/delete-blog", {
+    fetch("https://blog-app-pcbk.onrender.com/delete-blog", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
