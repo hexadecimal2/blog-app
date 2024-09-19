@@ -7,7 +7,7 @@
        background-image : url('img.png');
  }
 
-* Container for the entire blog page */
+/* Container for the entire blog page */
 .blog-container {
   max-width: 1200px;
   margin: 0 auto;

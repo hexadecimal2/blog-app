@@ -1,7 +1,6 @@
 import React from "react";
 import DisplayCard from "./displayCard.jsx";
 import "../styles.css";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 

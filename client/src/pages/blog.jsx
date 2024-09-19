@@ -1,7 +1,5 @@
 import React from "react";
 import "../styles.css";
-import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const Blog = () => {
