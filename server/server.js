@@ -49,8 +49,6 @@ app.use(express.json());
 
 app.get('/get-blogs', async function(request, response){
  
-    /*
-
     const users = await pool.query('SELECT * FROM users');
     const blogs = await pool.query('SELECT * FROM blogs');
     
@@ -62,11 +60,6 @@ app.get('/get-blogs', async function(request, response){
     
     console.log(data);
     
-     */
-
-    response.send({some : 'json'})
-
-
 });
 
 
