@@ -48,8 +48,8 @@ app.use(express.json());
 
 app.get('/get-blogs', async function(request, response){
  
-    const users = await pool.query('SELECT * FROM users');
-    const blogs = await pool.query('SELECT * FROM blogs');
+    const users = await pool.query('SELECT * FROM Users');
+    const blogs = await pool.query('SELECT * FROM Blogs');
     
     //build the json file
    
@@ -64,8 +64,8 @@ app.get('/get-blogs', async function(request, response){
 
 app.put('/add-blog', async function(request, response){
     
-    let users = await pool.query('SELECT * FROM users');
-    let blogs = await pool.query('SELECT * FROM blogs');
+    let users = await pool.query('SELECT * FROM Users');
+    let blogs = await pool.query('SELECT * FROM Blogs');
         
     let posts = buildData(users, blogs);
     
@@ -87,11 +87,11 @@ app.put('/add-blog', async function(request, response){
     }) 
     
 
-    await pool.query(`INSERT INTO users (Username) VALUES ('${request.body.data.Author}')`) 
+    await pool.query(`INSERT INTO Users (Username) VALUES ('${request.body.data.Author}')`) 
   
     posts.push(request.body);
    
-    await pool.query(`INSERT INTO blogs ( blogID, Title, Description, BlogData, Date) VALUES( ${posts[posts.length - 1].id}, '${posts[posts.length - 1].data.Title}', '${posts[posts.length - 1].data.Description}', '${posts[posts.length - 1].data.Blog_data}', '${posts[posts.length - 1].data.Date}');`);
+    await pool.query(`INSERT INTO Blogs ( blogID, Title, Description, BlogData, Date) VALUES( ${posts[posts.length - 1].id}, '${posts[posts.length - 1].data.Title}', '${posts[posts.length - 1].data.Description}', '${posts[posts.length - 1].data.Blog_data}', '${posts[posts.length - 1].data.Date}');`);
     //await pool.query(`INSERT INTO userblogs (userID, blogID) VALUES ((SELECT userID FROM users WHERE Username IN ( SELECT '${posts[posts.length - 1].data.Author}')), ${posts[posts.length - 1].id})`);
     response.send(posts);
 
@@ -100,8 +100,8 @@ app.put('/add-blog', async function(request, response){
 
 app.delete('/delete-blog', async function(request, response){
 
-    const users = await pool.query('SELECT * FROM users');
-    const blogs = await pool.query('SELECT * FROM blogs');
+    const users = await pool.query('SELECT * FROM Users');
+    const blogs = await pool.query('SELECT * FROM Blogs');
     
     let posts = buildData(users, blogs);
     
@@ -110,8 +110,8 @@ app.delete('/delete-blog', async function(request, response){
     posts.find(function (index) {
         if (index.id === request.body.id) {
             found = true;            
-            pool.query(`DELETE FROM blogs WHERE blogID = ${posts[request.body.id - 1].id}`).then();
-            pool.query(`DELETE FROM users WHERE username = '${posts[request.body.id - 1].data.Author}'`).then();
+            pool.query(`DELETE FROM Blogs WHERE blogID = ${posts[request.body.id - 1].id}`).then();
+            pool.query(`DELETE FROM Users WHERE username = '${posts[request.body.id - 1].data.Author}'`).then();
             posts.splice(posts.indexOf(index.id - 1), 1);           
             return
         }
