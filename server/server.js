@@ -43,7 +43,7 @@ const buildData = (users, blogs, arr) => {
 }
 
 
-app.use(cors({origin:'http://localhost:3000'}));
+app.use(cors({origin:'https://brilliant-crisp-60a8c7.netlify.app'}));
 
 app.use(express.json());
 
